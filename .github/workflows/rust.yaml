@@ -35,16 +35,14 @@ jobs:
             ${{ runner.os }}-buildx-
       - uses: docker/login-action@v1
         with:
-          registry: hub.docker.io
+          registry: ghcr.io
           username: ${{ github.repository_owner }}
-          password: ${{ secrets.magicloud_docker }}
-      - name: prepare
-        run: cp target/x86_64-unknown-linux-musl/release/juno-node-exporter . && chmod a+x artifacts/juno-node-exporter
+          password: ${{ secrets.GITHUB_TOKEN }}
       - uses: docker/build-push-action@v2
         with:
           context: .
           push: true
-          tags: juno-node-exporter:${{ github.sha }}
+          tags: ghcr.io/fpco-internal/juno-node-exporter:${{ github.sha }}
           cache-from: type=local,src=.buildx-cache
           cache-to: type=local,dest=.buildx-cache-new
       - name: Cache Rotation
