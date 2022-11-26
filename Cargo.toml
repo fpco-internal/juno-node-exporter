@@ -1,0 +1,14 @@
+[package]
+name = "juno-node-exporter"
+version = "2022.9.30"
+edition = "2021"
+
+[dependencies]
+prometheus_exporter = "*"
+json = "*"
+anyhow = "*"
+chrono = "*"
+reqwest = { version = "*", default-features = false, features = [
+    "rustls-tls",
+    "blocking",
+] }
